@@ -1,9 +1,11 @@
 .profile__edit-button {
-    margin: 15px 0 34px;
+    width: 24px;
+    height: 24px;
+    margin: 15px 0 16px;
     border: 1px solid #fff;
     background-image: url(../../../sprint-4-images/Vector2.svg);
     background-repeat: no-repeat;
-    background-size: 10px;
+    background-size: 10px 10px;
     background-position: center;
     background-color: black
 }
