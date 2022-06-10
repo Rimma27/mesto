@@ -1,6 +1,11 @@
 .popup__form_line {
     background-image: url(../../../../sprint-4-images/Line\ 2.svg);
     margin: 0 36px;
-    width: 358px;
     height: 1px;
+}
+
+@media screen and (max-width: 767px) {
+    .popup__form_line {
+        margin: 0 22px;
+    }
 }

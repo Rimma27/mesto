@@ -1,0 +1,18 @@
+.popup__button_close {
+    position: fixed;
+    border: solid #000;
+    width: 32px;
+    height: 32px;
+    background-image: url(../../../../sprint-4-images/Close\ Icon.svg);
+    background-size: cover;
+    background-color: black;
+    margin: 155px 385px 533px 863px;
+}
+
+@media screen and (max-width: 767px) {
+    .popup__button_close {
+        width: 20px;
+        height: 20px;
+        margin: 87px 19px 461px 281px;
+    }
+}

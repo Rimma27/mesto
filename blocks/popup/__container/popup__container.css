@@ -2,7 +2,16 @@
     width: 430px;
     height: 330px;
     display: flex;
+    margin-top: 195px;
     flex-direction: column;
     border-radius: 10px;
     background-color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+    .popup__container {
+        width: 282px;
+        height: 322px;
+        margin-top: 123px;
+    }
 }
