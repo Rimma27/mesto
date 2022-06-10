@@ -11,6 +11,9 @@
     align-items: center;
     justify-content: center;
 }
+.popup__button_save:hover {
+    opacity: 80%;
+}
 
 @media screen and (max-width: 767px) {
     .popup__button_save {
