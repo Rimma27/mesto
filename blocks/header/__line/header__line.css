@@ -1,10 +1,14 @@
 .header__line {
     margin-bottom: 0;
     width: 880px;
+    height: 1px;
+    background-image: url(../../../sprint-4-images/Line.svg);
+    background-color: #545454;
+    opacity: 70%;
 }
 
 @media screen and (max-width: 767px) {
     .header__line {
-        width: 320px;
+        width: 320px;   
     }
 }
