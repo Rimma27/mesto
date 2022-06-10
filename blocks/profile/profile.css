@@ -1,13 +1,14 @@
 .profile {
     position: relative;
     display: flex;
+    width: 880px;
     padding: 40px 200px 0;
 }
 
 @media screen and (max-width: 767px) {
     .profile {
+        width: 282px;
+        flex-direction: column;
         padding: 42px 19px 0;
-        min-width: 282px;
-        max-height: 286px;
     }
 }
