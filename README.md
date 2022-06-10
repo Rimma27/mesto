@@ -1,5 +1,5 @@
 # Проект: Место
-
+Ссылка на GitHub Pages: https://rimma27.github.io/mesto/
 ### Обзор
 
 * Figma
