@@ -1,11 +1,10 @@
 .container__form_job {
     border: 0;
-    height: 27px;
     margin: 30px 36px 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    font-weight: 400px;
+    font-weight: 400;
     font-size: 14px;
     line-height: 16.94px;
     color: black;
