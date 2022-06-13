@@ -3,7 +3,10 @@
     height: 19px;
     margin-top: 5px;
     margin-right: 5px;
-    margin-left: 25px;
+    background-image: url(../../../sprint-4-images/VectorStroke.svg);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .element__like:hover {

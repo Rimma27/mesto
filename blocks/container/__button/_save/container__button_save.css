@@ -10,6 +10,7 @@
     color: #fff;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 .container__button_save:hover {
     opacity: 80%;

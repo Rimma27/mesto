@@ -1,9 +1,10 @@
-.container__form_job {
+.container__form {
     border: 0;
     margin: 30px 36px 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    font-family: Inter;
     font-weight: 400;
     font-size: 14px;
     line-height: 16.94px;
@@ -11,7 +12,7 @@
 }
 
 @media screen and (max-width: 767px) {
-    .container__form_job {
+    .container__form {
         margin: 30px 22px 0;
     }
 }

@@ -1,5 +1,5 @@
 .elements {
-    padding: 46.25px 200px 0;
+    padding: 46.25px 0 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -12,6 +12,5 @@
         padding: 36px 19px 0;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(6, 1fr);
-        row-gap: 20px;
     }
 }

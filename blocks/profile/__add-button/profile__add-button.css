@@ -3,11 +3,13 @@
     height: 50px;
     margin: 35px 0 35px;
     border: 2px solid #fff;
-    background-image: url(../../../sprint-4-images/Vector\ \(1\).svg);
+    border-radius: 2px;
+    background-image: url(../../../sprint-4-images/Vector1.svg);
     background-repeat: no-repeat;
     background-size: 22px;
     background-position: center;
-    background-color: black;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .profile__add-button:hover {
