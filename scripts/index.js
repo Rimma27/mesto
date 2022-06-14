@@ -1,10 +1,10 @@
-let formElement = document.querySelector('.container');
-let nameInput = document.querySelector('.container__form_name');
-let jobInput = document.querySelector('.container__form_job');
+let formElement = document.querySelector('.popup__form');
+let nameInput = document.querySelector('.popup__item_type_name');
+let jobInput = document.querySelector('.popup__item_type_job');
 let profileName = document.querySelector('.profile__title');
 let profileJob = document.querySelector('.profile__subtitle');
 let editButton = document.querySelector('.profile__edit-button');
-let closeButton = document.querySelector('.popup__button_close');
+let closeButton = document.querySelector('.popup__button_type_close');
 let popup = document.querySelector('.popup');
 
 //                                     Функции
