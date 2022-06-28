@@ -1,18 +1,21 @@
-let formElement = document.querySelector('.popup__form');
-let nameInput = document.querySelector('.popup__item_type_name');
-let jobInput = document.querySelector('.popup__item_type_job');
-let profileName = document.querySelector('.profile__title');
-let profileJob = document.querySelector('.profile__subtitle');
-let editButton = document.querySelector('.profile__edit-button');
-let closeButton = document.querySelector('.popup__button_type_close');
-let popup = document.querySelector('.popup');
-let addButton = document.querySelector('.profile__add-button');
-let popupAdd = document.querySelector('.popup-add');
+const formElement = document.querySelector('.popup__form');
+const nameInput = document.querySelector('.popup__item_type_name');
+const jobInput = document.querySelector('.popup__item_type_job');
+const profileName = document.querySelector('.profile__title');
+const profileJob = document.querySelector('.profile__subtitle');
+const editButton = document.querySelector('.profile__edit-button');
+const closeButton = document.querySelector('.popup__button_type_close');
+const popup = document.querySelector('.popup');
+const addButton = document.querySelector('.profile__add-button');
+const popupAdd = document.querySelector('.popup-add');
 const titleInput = document.querySelector('.popup-add__item_type_title');
-let placeInput = document.querySelector('.popup-add__item_type_place');
-let createButton = document.querySelector('.popup-add__button_type_create');
-let closeAddButton = document.querySelector('.popup-add__button_type_close');
-const popupPhoto = document.querySelector('#popup-photo');
+const placeInput = document.querySelector('.popup-add__item_type_place');
+const createButton = document.querySelector('.popup-add__button_type_create');
+const closeAddButton = document.querySelector('.popup-add__button_type_close');
+const elements = document.querySelector('.elements');
+const popupPhoto = document.querySelector('.popup-photo');
+const closePhotoButton = document.querySelector('.popup-photo__button-close');
+
 
 
 //                                  Карточки 
@@ -43,28 +46,34 @@ const initialCards = [
     }
 ];
 
-const elementTemplate = document.querySelector('#element-template').content;
-const elements = document.querySelector('.elements');
- 
-function addCard(item){
+
+
+function addCard(item) {
+    const elementTemplate = document.querySelector('#element-template').content;
     const element = elementTemplate.querySelector('.element').cloneNode(true);
     element.querySelector('.element__image').src = item.link;
     element.querySelector('.element__image').alt = item.name;
     element.querySelector('.element__title').textContent = item.name;
-    elements.prepend(element);
+
     element.querySelector('.element__basket').addEventListener('click', function () {
         element.remove();
     });
-    element.querySelector('.element__like').addEventListener('click', function(evt){
+    element.querySelector('.element__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('element__like_active');
-    })
+    });
 
+    element.querySelector('.element__button-image').addEventListener('click', function () {
+        popupPhoto.classList.add('popup-photo_opened');
+        popupPhoto.querySelector('.popup-photo__image').src = item.link;
+        popupPhoto.querySelector('.popup-photo__name').textContent = item.name;
+    });
+
+    elements.prepend(element);
 };
 
 initialCards.forEach(function (item) {
     addCard(item);
 });
-
 
 
 //                                     Функции
@@ -105,6 +114,10 @@ function formSubmitHandlerCard(evt) {
     closePopupAdd();
 }
 
+function closePopupPhoto() {
+    popupPhoto.classList.remove('popup-photo_opened');
+}
+
 
 //                                    Листнеры
 
@@ -114,3 +127,4 @@ closeButton.addEventListener('click', closePopup);
 addButton.addEventListener('click', openPopupAdd);
 createButton.addEventListener('click', formSubmitHandlerCard);
 closeAddButton.addEventListener('click', closePopupAdd);
+closePhotoButton.addEventListener('click', closePopupPhoto);

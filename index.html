@@ -27,7 +27,7 @@
                 <template id="element-template">
                     <article class="element">
                         <button type="button" class="element__basket"></button>
-                        <img class="element__image">
+                        <button type="button" class="element__button-image"><img class="element__image"></button>
                         <div class="element__group">
                             <h3 class="element__title"></h3>
                             <button type="button" class="element__like"></button>
@@ -35,7 +35,7 @@
                     </article>
                 </template>
 
-               
+
             </section>
         </main>
         <footer class="footer">© 2020 Mesto Russia</footer>
@@ -65,12 +65,15 @@
         </div>
 
 
-        <template id="popup-photo">
-            <div class="popup-photo">
+
+        <div class="popup-photo">
+            <div class="popup-photo__container">
+                <button type="button" class="popup-photo__button-close"></button>
                 <img class="popup-photo__image" alt="Фото">
                 <p class="popup-photo__name"></p>
             </div>
-        </template>
+        </div>
+
 
     </div>
     <script src="./scripts/index.js"></script>

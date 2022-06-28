@@ -1,0 +1,27 @@
+.popup-photo__button-close {
+    display: block;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    border: none;
+    width: 32px;
+    height: 32px;
+    background-image: url(../../../../sprint-4-images/CloseIcon.svg);
+    background-size: cover;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.popup-photo__button-close:hover {
+    opacity: 60%;
+}
+
+@media screen and (max-width: 880px) {
+    .popup-photo__button-close {
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        top: -28px;
+        right: -28px;
+    }
+}
