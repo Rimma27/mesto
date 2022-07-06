@@ -14,7 +14,9 @@ const popupCreateButton = document.querySelector('.popup-add__button_type_create
 const popupAddCloseButton = document.querySelector('.popup-add__button_type_close');
 const elements = document.querySelector('.elements');
 const popupPhoto = document.querySelector('.popup-photo');
-const PhotoCloseButton = document.querySelector('.popup-photo__button-close');
+const photoCloseButton = document.querySelector('.popup-photo__button-close');
+const popupOpened = document.querySelector('.popup-opened');
+const allPopup = document.querySelectorAll('.all-popup');
 
 
 
@@ -58,10 +60,16 @@ function addCard(card, container) {
 
 function openPopup(popup) {
     popup.classList.add('popup-opened');
+    document.addEventListener('keydown', keyHandler);
+    document.addEventListener('click', clickHandler);
+
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup-opened');
+    document.removeEventListener('keydown', keyHandler);
+    document.removeEventListener('click', clickHandler);
+
 }
 
 function submitProfileForm(evt) {
@@ -82,6 +90,27 @@ function submitProfileFormCard(evt) {
     closePopup(popupAdd);
 }
 
+
+function clickHandler(evt) {
+    const allPopupList = Array.from(document.querySelectorAll('.all-popup'));
+    allPopupList.forEach((allPopup) => {
+        if (evt.target === allPopup) {
+            closePopup(allPopup);
+        };
+    })
+}
+
+function keyHandler(evt) {
+    const allPopupList = Array.from(document.querySelectorAll('.all-popup'));
+    allPopupList.forEach((allPopup) => {
+        if (evt.key === "Escape") {
+            closePopup(allPopup);
+        }
+    })
+}
+
+
+
 //                                    Листнеры
 
 formProfileElement.addEventListener('submit', submitProfileForm);
@@ -93,7 +122,7 @@ profileEditButton.addEventListener('click', function () {
 profileCloseButton.addEventListener('click', function () {
     closePopup(popupProfile);
 });
-profileAddButton.addEventListener('click', function(){
+profileAddButton.addEventListener('click', function () {
     openPopup(popupAdd);
     titleInput.value = '';
     placeInput.value = '';
@@ -102,7 +131,6 @@ popupCreateButton.addEventListener('click', submitProfileFormCard);
 popupAddCloseButton.addEventListener('click', function () {
     closePopup(popupAdd);
 });
-PhotoCloseButton.addEventListener('click', function () {
+photoCloseButton.addEventListener('click', function () {
     closePopup(popupPhoto);
 });
-
