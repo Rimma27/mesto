@@ -62,14 +62,12 @@ function openPopup(popup) {
     popup.classList.add('popup-opened');
     document.addEventListener('keydown', keyHandler);
     document.addEventListener('click', clickHandler);
-
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup-opened');
     document.removeEventListener('keydown', keyHandler);
     document.removeEventListener('click', clickHandler);
-
 }
 
 function submitProfileForm(evt) {
@@ -115,9 +113,9 @@ function keyHandler(evt) {
 
 formProfileElement.addEventListener('submit', submitProfileForm);
 profileEditButton.addEventListener('click', function () {
-    openPopup(popupProfile);
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
+    openPopup(popupProfile);
 });
 profileCloseButton.addEventListener('click', function () {
     closePopup(popupProfile);
