@@ -4,18 +4,16 @@ const jobInput = document.querySelector('.popup__item_type_job');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
 const profileEditButton = document.querySelector('.profile__edit-button');
-const profileCloseButton = document.querySelector('.popup__button_type_close');
+const popupCloseButtons = document.querySelectorAll('.popup__button_type_close');
 const popupProfile = document.querySelector('.popup');
 const profileAddButton = document.querySelector('.profile__add-button');
 const popupAdd = document.querySelector('.popup-add');
-const titleInput = document.querySelector('.popup-add__item_type_title');
-const placeInput = document.querySelector('.popup-add__item_type_place');
-const popupCreateButton = document.querySelector('.popup-add__button_type_create');
-const popupAddCloseButton = document.querySelector('.popup-add__button_type_close');
+const titleInput = document.querySelector('.popup__item_type_title');
+const placeInput = document.querySelector('.popup__item_type_place');
+const popupCreateButton = document.querySelector('.popup__button_type_create');
 const elements = document.querySelector('.elements');
 const popupPhoto = document.querySelector('.popup-photo');
 const photoCloseButton = document.querySelector('.popup-photo__button-close');
-const popupOpened = document.querySelector('.popup-opened');
 const allPopup = document.querySelectorAll('.all-popup');
 
 
@@ -117,18 +115,21 @@ profileEditButton.addEventListener('click', function () {
     jobInput.value = profileJob.textContent;
     openPopup(popupProfile);
 });
-profileCloseButton.addEventListener('click', function () {
+popupCloseButtons.forEach((popupCloseButton) => {
+popupCloseButton.addEventListener('click', function () {
     closePopup(popupProfile);
+    closePopup(popupAdd);
 });
+})
+
 profileAddButton.addEventListener('click', function () {
     openPopup(popupAdd);
     titleInput.value = '';
     placeInput.value = '';
 });
 popupCreateButton.addEventListener('click', submitProfileFormCard);
-popupAddCloseButton.addEventListener('click', function () {
-    closePopup(popupAdd);
-});
+
+
 photoCloseButton.addEventListener('click', function () {
     closePopup(popupPhoto);
 });
