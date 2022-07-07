@@ -1,12 +1,13 @@
 .popup__button_type_close {
-    position: fixed;
+    position: absolute;
     border: none;
     width: 32px;
     height: 32px;
     background-image: url(../../../../sprint-4-images/CloseIcon.svg);
     background-size: cover;
     background-color: transparent;
-    margin: 155px 385px 533px 863px;
+    top: -40px;
+    right: -40px;
     cursor: pointer;
 }
 
@@ -18,7 +19,7 @@
     .popup__button_type_close {
         width: 20px;
         height: 20px;
-        margin: 87px 19px 461px 281px;
-        padding: 0;
+        top: -36px;
+        right: 0;
     }
 }

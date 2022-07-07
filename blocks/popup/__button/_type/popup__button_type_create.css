@@ -13,12 +13,12 @@
     justify-content: center;
     cursor: pointer;
 }
-.popup-add__button_type_create:hover {
+.popup__button_type_create:hover {
     opacity: 80%;
 }
 
 @media screen and (max-width: 880px) {
-    .popup-add__button_type_create {
+    .popup__button_type_create {
         width: 238px;
         height: 46px;
         margin: 45px 22px 25px;

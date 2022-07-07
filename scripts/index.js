@@ -60,6 +60,7 @@ function openPopup(popup) {
     popup.classList.add('popup-opened');
     document.addEventListener('keydown', keyHandler);
     document.addEventListener('click', clickHandler);
+    resetErrorInput(popup); 
 }
 
 function closePopup(popup) {
@@ -123,13 +124,25 @@ popupCloseButton.addEventListener('click', function () {
 })
 
 profileAddButton.addEventListener('click', function () {
-    openPopup(popupAdd);
     titleInput.value = '';
     placeInput.value = '';
+    openPopup(popupAdd);
 });
 popupCreateButton.addEventListener('click', submitProfileFormCard);
 
 
 photoCloseButton.addEventListener('click', function () {
     closePopup(popupPhoto);
+});
+
+
+// validation enable
+
+enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__item',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_inactive',
+    inputErrorClass: 'popup__item_type_error',
+    errorClass: 'popup__item-error_active'
 });
