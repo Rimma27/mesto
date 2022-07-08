@@ -70,7 +70,7 @@ function openPopup(popup) {
 function closePopup(popup) {
     popup.classList.remove('popup-opened');
     document.removeEventListener('keydown', keyHandler);
-    document.removeEventListener('mousedown', clickHandler);
+    popup.removeEventListener('mousedown', clickHandler);
 }
 
 function submitProfileForm(evt) {
@@ -93,21 +93,17 @@ function submitProfileFormCard(evt) {
 
 
 function clickHandler(evt) {
-    allPopups.forEach((allPopup) => {
-        if (evt.target === allPopup) {
-            closePopup(allPopup);
-        };
-    })
-}
+        if (evt.target.classList.contains('all-popup')) {
+           closePopup(evt.target);
+        }
+    }
 
 function keyHandler(evt) {
-    const allPopupList = Array.from(document.querySelectorAll('.all-popup'));
-    allPopupList.forEach((allPopups) => {
         if (evt.key === "Escape") {
-            closePopup(allPopups);
+            const popup = document.querySelector('.popup-opened');
+            closePopup(popup);
         }
-    })
-}
+    }
 
 
 
