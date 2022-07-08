@@ -53,9 +53,6 @@ const enableValidation = (settings) => {
     validationSettings = settings;
     const formList = Array.from(document.querySelectorAll(validationSettings.formSelector));
     formList.forEach((formElement) => {
-        formElement.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-        })
         setEventListeners(formElement);
     })
 }
@@ -64,7 +61,6 @@ function resetErrorInput(popup) {
     const formElement = popup.querySelector(validationSettings.formSelector);
     const inputList = Array.from(popup.querySelectorAll(validationSettings.inputSelector));
     const buttonElement = popup.querySelector(validationSettings.submitButtonSelector);
-
     if (inputList.length > 0) {
         toggleButtonState(inputList, buttonElement);
         inputList.forEach((formInput) => {

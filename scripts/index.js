@@ -14,14 +14,17 @@ const popupCreateButton = document.querySelector('.popup__button_type_create');
 const elements = document.querySelector('.elements');
 const popupPhoto = document.querySelector('.popup-photo');
 const photoCloseButton = document.querySelector('.popup-photo__button-close');
-const allPopup = document.querySelectorAll('.all-popup');
+const allPopups = document.querySelectorAll('.all-popup');
+const elementTemplate = document.querySelector('#element-template').content;
+const photoImage = popupPhoto.querySelector('.popup-photo__image');
+const photoName = popupPhoto.querySelector('.popup-photo__name');
+
 
 
 
 //                                  Карточки 
 
 function createCard(item) {
-    const elementTemplate = document.querySelector('#element-template').content;
     const element = elementTemplate.querySelector('.element').cloneNode(true);
     const imageElement = element.querySelector('.element__image');
     imageElement.src = item.link;
@@ -37,8 +40,9 @@ function createCard(item) {
 
     element.querySelector('.element__button-image').addEventListener('click', function () {
         openPopup(popupPhoto);
-        popupPhoto.querySelector('.popup-photo__image').src = item.link;
-        popupPhoto.querySelector('.popup-photo__name').textContent = item.name;
+        photoImage.src = item.link;
+        photoImage.alt = item.name;
+        photoName.textContent = item.name;
     });
 
     return element;
@@ -59,14 +63,14 @@ function addCard(card, container) {
 function openPopup(popup) {
     popup.classList.add('popup-opened');
     document.addEventListener('keydown', keyHandler);
-    document.addEventListener('click', clickHandler);
+    popup.addEventListener('mousedown', clickHandler);
     resetErrorInput(popup); 
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup-opened');
     document.removeEventListener('keydown', keyHandler);
-    document.removeEventListener('click', clickHandler);
+    document.removeEventListener('mousedown', clickHandler);
 }
 
 function submitProfileForm(evt) {
@@ -89,8 +93,7 @@ function submitProfileFormCard(evt) {
 
 
 function clickHandler(evt) {
-    const allPopupList = Array.from(document.querySelectorAll('.all-popup'));
-    allPopupList.forEach((allPopup) => {
+    allPopups.forEach((allPopup) => {
         if (evt.target === allPopup) {
             closePopup(allPopup);
         };
@@ -99,9 +102,9 @@ function clickHandler(evt) {
 
 function keyHandler(evt) {
     const allPopupList = Array.from(document.querySelectorAll('.all-popup'));
-    allPopupList.forEach((allPopup) => {
+    allPopupList.forEach((allPopups) => {
         if (evt.key === "Escape") {
-            closePopup(allPopup);
+            closePopup(allPopups);
         }
     })
 }
