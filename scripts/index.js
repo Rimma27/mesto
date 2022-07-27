@@ -1,6 +1,6 @@
 import { initialCards } from "./initialCards.js";
-import { Card } from "./card.js";
-import { FormValidator } from "./validate.js";
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 const formProfileElement = document.querySelector('.popup__form');
 const nameInput = document.querySelector('.popup__item_type_name');
 const jobInput = document.querySelector('.popup__item_type_job');
@@ -28,6 +28,7 @@ const validationSettings = {
 
 
 
+
 //                                  Карточки 
 
 
@@ -45,11 +46,6 @@ function addCard(card, container) {
 
 //                                     Функции
 
-
-function makeCard(item) {
-    const card = new Card(item, '.element-template', openPopup);
-    return card;
-}
 
 function openPopup(popup) {
     popup.classList.add('popup-opened');
@@ -96,7 +92,10 @@ function keyHandler(evt) {
     }
 }
 
-
+function makeCard(item) {
+    const card = new Card(item, '.element-template', openPopup);
+    return card;
+}
 
 //                                    Листнеры
 
