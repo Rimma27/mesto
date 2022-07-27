@@ -1,3 +1,6 @@
+import { initialCards } from "./initialCards.js";
+import { Card } from "./card.js";
+import { FormValidator } from "./validate.js";
 const formProfileElement = document.querySelector('.popup__form');
 const nameInput = document.querySelector('.popup__item_type_name');
 const jobInput = document.querySelector('.popup__item_type_job');
@@ -12,53 +15,41 @@ const titleInput = document.querySelector('.popup__item_type_title');
 const placeInput = document.querySelector('.popup__item_type_place');
 const popupCreateButton = document.querySelector('.popup__button_type_create');
 const elements = document.querySelector('.elements');
-const popupPhoto = document.querySelector('.popup-photo');
 const photoCloseButton = document.querySelector('.popup-photo__button-close');
-const allPopups = document.querySelectorAll('.all-popup');
-const elementTemplate = document.querySelector('#element-template').content;
-const photoImage = popupPhoto.querySelector('.popup-photo__image');
-const photoName = popupPhoto.querySelector('.popup-photo__name');
-
+const popupPhoto = document.querySelector('.popup-photo');
+const validationSettings = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__item',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_inactive',
+    inputErrorClass: 'popup__item_type_error',
+    errorClass: 'popup__item-error_active'
+}
 
 
 
 //                                  Карточки 
 
-function createCard(item) {
-    const element = elementTemplate.querySelector('.element').cloneNode(true);
-    const imageElement = element.querySelector('.element__image');
-    imageElement.src = item.link;
-    imageElement.alt = item.name;
-    element.querySelector('.element__title').textContent = item.name;
 
-    element.querySelector('.element__basket').addEventListener('click', function () {
-        element.remove();
-    });
-    element.querySelector('.element__like').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('element__like_active');
-    });
-
-    element.querySelector('.element__button-image').addEventListener('click', function () {
-        openPopup(popupPhoto);
-        photoImage.src = item.link;
-        photoImage.alt = item.name;
-        photoName.textContent = item.name;
-    });
-
-    return element;
-};
-
-initialCards.forEach(function (item) {
-    const result = createCard(item);
-    addCard(result, elements);
+initialCards.forEach((item) => {
+    const card = makeCard(item);
+    const cardElement = card.generateCard();
+    addCard(cardElement, elements);
 });
 
 function addCard(card, container) {
     container.prepend(card);
-}
+};
+
 
 
 //                                     Функции
+
+
+function makeCard(item) {
+    const card = new Card(item, '.element-template', openPopup);
+    return card;
+}
 
 function openPopup(popup) {
     popup.classList.add('popup-opened');
@@ -85,8 +76,9 @@ function submitProfileFormCard(evt) {
         name: titleInput.value,
         link: placeInput.value
     };
-    const result = createCard(item);
-    addCard(result, elements);
+    const card = makeCard(item);
+    const cardElement = card.generateCard();
+    addCard(cardElement, elements);
     closePopup(popupAdd);
 }
 
@@ -112,7 +104,8 @@ formProfileElement.addEventListener('submit', submitProfileForm);
 profileEditButton.addEventListener('click', function () {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
-    resetErrorInput(popupProfile);
+    const formValidator = new FormValidator(validationSettings, popupProfile);
+    formValidator.enableValidation();
     openPopup(popupProfile);
 });
 popupCloseButtons.forEach((popupCloseButton) => {
@@ -125,7 +118,8 @@ popupCloseButtons.forEach((popupCloseButton) => {
 profileAddButton.addEventListener('click', function () {
     titleInput.value = '';
     placeInput.value = '';
-    resetErrorInput(popupAdd);
+    const formValidator = new FormValidator(validationSettings, popupAdd);
+    formValidator.enableValidation();
     openPopup(popupAdd);
 });
 popupCreateButton.addEventListener('click', submitProfileFormCard);
@@ -136,13 +130,6 @@ photoCloseButton.addEventListener('click', function () {
 });
 
 
-// validation enable
 
-enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__item',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__item_type_error',
-    errorClass: 'popup__item-error_active'
-});
+
+
