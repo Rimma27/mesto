@@ -56,7 +56,7 @@ export class FormValidator {
     }
 
 
-    _resetErrorInput() {
+    resetErrorInput = () => {
         const inputList = Array.from(this._formElement.querySelectorAll(this._validationSettings.inputSelector));
         const buttonElement = this._formElement.querySelector(this._validationSettings.submitButtonSelector);
         if (inputList.length > 0) {
@@ -68,7 +68,6 @@ export class FormValidator {
     }
 
     enableValidation = () => {
-        this._resetErrorInput();
         this._setEventListeners();
     }
 

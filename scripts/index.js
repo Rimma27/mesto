@@ -25,6 +25,8 @@ const validationSettings = {
     inputErrorClass: 'popup__item_type_error',
     errorClass: 'popup__item-error_active'
 }
+const popupAddValidator = new FormValidator(validationSettings, popupAdd);
+const popupProfileValidator = new FormValidator(validationSettings, popupProfile);
 
 
 
@@ -34,8 +36,7 @@ const validationSettings = {
 
 initialCards.forEach((item) => {
     const card = makeCard(item);
-    const cardElement = card.generateCard();
-    addCard(cardElement, elements);
+    addCard(card, elements);
 });
 
 function addCard(card, container) {
@@ -51,6 +52,8 @@ function openPopup(popup) {
     popup.classList.add('popup-opened');
     document.addEventListener('keydown', keyHandler);
     popup.addEventListener('mousedown', clickHandler);
+    popupProfileValidator.resetErrorInput();
+    popupAddValidator.resetErrorInput();
 }
 
 function closePopup(popup) {
@@ -73,8 +76,7 @@ function submitProfileFormCard(evt) {
         link: placeInput.value
     };
     const card = makeCard(item);
-    const cardElement = card.generateCard();
-    addCard(cardElement, elements);
+    addCard(card, elements);
     closePopup(popupAdd);
 }
 
@@ -94,7 +96,7 @@ function keyHandler(evt) {
 
 function makeCard(item) {
     const card = new Card(item, '.element-template', openPopup);
-    return card;
+    return card.generateCard();
 }
 
 //                                    Листнеры
@@ -103,8 +105,7 @@ formProfileElement.addEventListener('submit', submitProfileForm);
 profileEditButton.addEventListener('click', function () {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
-    const formValidator = new FormValidator(validationSettings, popupProfile);
-    formValidator.enableValidation();
+    popupProfileValidator.enableValidation();
     openPopup(popupProfile);
 });
 popupCloseButtons.forEach((popupCloseButton) => {
@@ -117,8 +118,7 @@ popupCloseButtons.forEach((popupCloseButton) => {
 profileAddButton.addEventListener('click', function () {
     titleInput.value = '';
     placeInput.value = '';
-    const formValidator = new FormValidator(validationSettings, popupAdd);
-    formValidator.enableValidation();
+    popupAddValidator.enableValidation();
     openPopup(popupAdd);
 });
 popupCreateButton.addEventListener('click', submitProfileFormCard);
