@@ -40,7 +40,7 @@ export class Card {
         });
 
         this._element.querySelector('.element__like').addEventListener('click', (evt) => {
-            evt.target.classList.toggle('element__like_active');
+            this._likeButtonActive(evt);
         });
         
         this._element.querySelector('.element__button-image').addEventListener('click', () => {
@@ -53,6 +53,10 @@ export class Card {
 
     _deleteCard() {
         this._element.remove();
+    }
+
+    _likeButtonActive(evt) {
+        evt.target.classList.toggle('element__like_active');
     }
 }
 
