@@ -44,10 +44,7 @@ export class Card {
         });
         
         this._element.querySelector('.element__button-image').addEventListener('click', () => {
-            this._openPopup(this._element.querySelector('.popup-photo'));
-            photoImage.src = this._link;
-            photoImage.alt = this._name;
-            photoName.textContent = this._name;
+            this._handleOpenPopup();
         });
     }
 
@@ -57,6 +54,13 @@ export class Card {
 
     _likeButtonActive(evt) {
         evt.target.classList.toggle('element__like_active');
+    }
+
+    _handleOpenPopup() {
+        photoImage.src = this._link;
+        photoImage.alt = this._name;
+        photoName.textContent = this._name;
+        this._openPopup(this._element.querySelector('.popup-photo'));
     }
 }
 
