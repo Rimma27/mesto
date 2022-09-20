@@ -14,7 +14,7 @@ export const titleInput = document.querySelector('.popup__item_type_title');
 export const placeInput = document.querySelector('.popup__item_type_place');
 export const popupCreateButton = document.querySelector('.popup__button_type_create');
 export const elements = document.querySelector('.elements');
-export const popupPhoto = document.querySelector(popupPhotoSelector);
+export const popupPhoto = document.querySelector('.popup-photo');
 export const popupPhotoSelector = '.popup-photo';
 export const validationSettings = {
     formSelector: '.popup__form',

@@ -1,5 +1,3 @@
-import { PopupWithImage } from "./PopupWithImage";
-
 export class Card {
 
     constructor(data, templateSelector, popup) {
