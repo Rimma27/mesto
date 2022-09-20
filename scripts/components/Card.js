@@ -1,16 +1,12 @@
-const popupPhoto = document.querySelector('.popup-photo');
-const photoImage = popupPhoto.querySelector('.popup-photo__image');
-const photoName = popupPhoto.querySelector('.popup-photo__name');
+import { PopupWithImage } from "./PopupWithImage";
 
 export class Card {
 
-    constructor(data, templateSelector, openPopup) {
+    constructor(data, templateSelector, popup) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
-        this._openPopup = () => {
-            openPopup(popupPhoto);
-        }
+        this._popupImage = popup;
     }
 
     _getTemplate() {
@@ -44,7 +40,7 @@ export class Card {
         });
         
         this._element.querySelector('.element__button-image').addEventListener('click', () => {
-            this._handleOpenPopup();
+            this._popupImage.openPopup();
         });
     }
 
@@ -56,11 +52,5 @@ export class Card {
         evt.target.classList.toggle('element__like_active');
     }
 
-    _handleOpenPopup() {
-        photoImage.src = this._link;
-        photoImage.alt = this._name;
-        photoName.textContent = this._name;
-        this._openPopup(this._element.querySelector('.popup-photo'));
-    }
 }
 
