@@ -6,8 +6,8 @@ export class UserInfo {
 
     getUserInfo(){
         const usersInfo = {
-            name: this._usersNameSelector.textContent,
-            job: this._usersJobSelector.textContent
+            name: this._usersNameInput.textContent,
+            job: this._usersJobInput.textContent
         };
         return usersInfo;
     }

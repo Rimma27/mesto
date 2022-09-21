@@ -13,26 +13,49 @@ import {
     popupProfile,
     popupAdd,
     popupProfileSelector,
-    profileName,
-    profileJob,
+    profileNameSelector,
+    profileJobSelector,
     validationSettings,
-    elements,
+    elementsSelector,
     popupPhotoSelector,
     profileEditButton,
-    profileAddButton
+    profileAddButton,
+    titleInput,
+    placeInput
 } from "../utils/constants.js";
 
 
 const popupAddValidator = new FormValidator(validationSettings, popupAdd);
 const popupProfileValidator = new FormValidator(validationSettings, popupProfile);
+const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector });
 const popupAddForm = new PopupWithForm(popupAddSelector, (inputsInfo) => {
     section.addItem(inputsInfo);
     section.renderItems();
 });
+
+// const popupWithImage = new PopupWithImage(popupPhotoSelector,
+//     {
+//         name: titleInput,
+//         link: placeInput
+//     });
+
+   
+
+// const popupAddCard = new PopupWithForm(popupAddSelector, (item) => {
+//    const addCard = new Card(item, '.element-template', popupWithImage);
+//    elements.prepend(addCard.generateCard());
+// });
+
+
+popupWithImage.setEventListeners();
+
+popupAddForm.setEventListeners();
+
 const popupProfileForm = new PopupWithForm(popupProfileSelector, (inputsInfo) => {
     userInfo.setUserInfo(inputsInfo.name, inputsInfo.job);
 });
-const userInfo = new UserInfo({ profileName, profileJob });
+
+popupProfileForm.setEventListeners();
 
 
 
@@ -42,14 +65,12 @@ const section = new Section({
     renderer: (item) => {
         const popup = new PopupWithImage(popupPhotoSelector, item.name, item.link);
         const card = new Card(item, '.element-template', popup);
-        section.addItem(item);
         return card.generateCard();
     }
-}, elements);
+}, elementsSelector);
+
+
 section.renderItems();
-
-
-
 
 
 //                                    Листнеры
@@ -57,9 +78,9 @@ section.renderItems();
 profileEditButton.addEventListener('click', function () {
     popupProfileValidator.enableValidation();
     popupProfileValidator.resetErrorInput();
-    popupProfileForm.openPopup();
+    const userInfoData = userInfo.getUserInfo();
+    popupProfileForm.openPopup(userInfoData);
 });
-
 
 profileAddButton.addEventListener('click', function () {
     popupAddValidator.enableValidation();

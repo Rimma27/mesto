@@ -3,6 +3,8 @@ export const nameInput = document.querySelector('.popup__item_type_name');
 export const jobInput = document.querySelector('.popup__item_type_job');
 export const profileName = document.querySelector('.profile__title');
 export const profileJob = document.querySelector('.profile__subtitle');
+export const profileNameSelector = '.profile__title';
+export const profileJobSelector = '.profile__subtitle';
 export const profileEditButton = document.querySelector('.profile__edit-button');
 
 export const popupProfile = document.querySelector('.popup');
@@ -13,7 +15,7 @@ export const popupAddSelector = '.popup-add';
 export const titleInput = document.querySelector('.popup__item_type_title');
 export const placeInput = document.querySelector('.popup__item_type_place');
 export const popupCreateButton = document.querySelector('.popup__button_type_create');
-export const elements = document.querySelector('.elements');
+export const elementsSelector = '.elements';
 export const popupPhoto = document.querySelector('.popup-photo');
 export const popupPhotoSelector = '.popup-photo';
 export const validationSettings = {
