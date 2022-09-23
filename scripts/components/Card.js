@@ -38,7 +38,7 @@ export class Card {
         });
         
         this._element.querySelector('.element__button-image').addEventListener('click', () => {
-            this._popupImage.openPopup();
+            this._popupImage.openPopup(this._link, this._name );
         });
     }
 

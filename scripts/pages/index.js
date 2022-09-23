@@ -5,9 +5,6 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
-
-
-
 import {
     popupAddSelector,
     popupProfile,
@@ -20,60 +17,43 @@ import {
     popupPhotoSelector,
     profileEditButton,
     profileAddButton,
-    titleInput,
-    placeInput
+    elements
 } from "../utils/constants.js";
 
 
 const popupAddValidator = new FormValidator(validationSettings, popupAdd);
+
 const popupProfileValidator = new FormValidator(validationSettings, popupProfile);
+
 const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector });
-const popupAddForm = new PopupWithForm(popupAddSelector, (inputsInfo) => {
-    section.addItem(inputsInfo);
-    section.renderItems();
+
+const popupWithImage = new PopupWithImage(popupPhotoSelector);
+
+const popupAddForm = new PopupWithForm(popupAddSelector, (item) => {
+    const addCard = new Card(item, '.element-template', popupWithImage);
+    elements.prepend(addCard.generateCard());
 });
-
-// const popupWithImage = new PopupWithImage(popupPhotoSelector,
-//     {
-//         name: titleInput,
-//         link: placeInput
-//     });
-
-   
-
-// const popupAddCard = new PopupWithForm(popupAddSelector, (item) => {
-//    const addCard = new Card(item, '.element-template', popupWithImage);
-//    elements.prepend(addCard.generateCard());
-// });
-
-
-popupWithImage.setEventListeners();
-
-popupAddForm.setEventListeners();
 
 const popupProfileForm = new PopupWithForm(popupProfileSelector, (inputsInfo) => {
     userInfo.setUserInfo(inputsInfo.name, inputsInfo.job);
 });
 
-popupProfileForm.setEventListeners();
-
-
-
-
 const section = new Section({
     items: initialCards,
     renderer: (item) => {
-        const popup = new PopupWithImage(popupPhotoSelector, item.name, item.link);
-        const card = new Card(item, '.element-template', popup);
+    
+        const card = new Card(item, '.element-template', popupWithImage);
         return card.generateCard();
     }
 }, elementsSelector);
-
-
 section.renderItems();
 
 
 //                                    Листнеры
+
+popupWithImage.setEventListeners();
+popupAddForm.setEventListeners();
+popupProfileForm.setEventListeners();
 
 profileEditButton.addEventListener('click', function () {
     popupProfileValidator.enableValidation();
