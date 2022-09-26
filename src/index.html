@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <link rel="stylesheet" href="./style/index.css">
 </head>
 
 <body class="body">
     <div class="page">
         <header class="header">
-            <img src="./sprint-4-images/Vector.svg" class="header__logo" alt="Место">
+            <img src="<%=require('../sprint-4-images/Vector.svg')%>" class="header__logo" alt="Место">
         </header>
         <main class="content">
             <section class="profile">
-                <img src="./sprint-4-images/image.svg" class="profile__avatar" alt="Ваша фотография">
+                <img src="<%=require('../sprint-4-images/image.svg')%>" class="profile__avatar" alt="Ваша фотография">
                 <div class="profile__info">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
                     <button type="button" class="profile__edit-button" aria-label="Редактировать"></button>
@@ -82,10 +81,7 @@
                 <p class="popup-photo__name"></p>
             </div>
         </div>
-
-
     </div>
-    <script type="module" src="./scripts/pages/index.js"></script>
 </body>
 
 </html>
