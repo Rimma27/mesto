@@ -1,10 +1,10 @@
 export class Card {
 
-    constructor(data, templateSelector, popup) {
+    constructor(data, templateSelector, openPopupCallback) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
-        this._popupImage = popup;
+        this._openPopupCallback = openPopupCallback;
     }
 
     _getTemplate() {
@@ -38,7 +38,7 @@ export class Card {
         });
         
         this._element.querySelector('.element__button-image').addEventListener('click', () => {
-            this._popupImage.openPopup(this._link, this._name );
+            this._openPopupCallback(this._link, this._name);
         });
     }
 
@@ -49,6 +49,5 @@ export class Card {
     _likeButtonActive(evt) {
         evt.target.classList.toggle('element__like_active');
     }
-
 }
 

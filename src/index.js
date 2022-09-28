@@ -18,7 +18,6 @@ import {
     popupPhotoSelector,
     profileEditButton,
     profileAddButton,
-    elements
 } from "../scripts/utils/constants.js";
 
 
@@ -31,24 +30,31 @@ const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJob
 const popupWithImage = new PopupWithImage(popupPhotoSelector);
 
 const popupAddForm = new PopupWithForm(popupAddSelector, (item) => {
-    const addCard = new Card(item, '.element-template', popupWithImage);
-    elements.prepend(addCard.generateCard());
+    const card = createCard(item);
+    const cardElement = card.generateCard();
+    section.addItem(cardElement);
 });
+popupAddValidator.enableValidation();
 
 const popupProfileForm = new PopupWithForm(popupProfileSelector, (inputsInfo) => {
     userInfo.setUserInfo(inputsInfo.name, inputsInfo.job);
 });
+popupProfileValidator.enableValidation();
 
 const section = new Section({
     items: initialCards,
     renderer: (item) => {
-    
-        const card = new Card(item, '.element-template', popupWithImage);
+        const card = createCard(item);
         return card.generateCard();
     }
 }, elementsSelector);
 section.renderItems();
 
+
+function createCard(item) {
+    const card = new Card(item, '.element-template', popupWithImage.open.bind(popupWithImage));
+    return card;
+}
 
 //                                    Листнеры
 
@@ -57,19 +63,15 @@ popupAddForm.setEventListeners();
 popupProfileForm.setEventListeners();
 
 profileEditButton.addEventListener('click', function () {
-    popupProfileValidator.enableValidation();
     popupProfileValidator.resetErrorInput();
     const userInfoData = userInfo.getUserInfo();
-    popupProfileForm.openPopup(userInfoData);
+    popupProfileForm.open(userInfoData);
 });
 
 profileAddButton.addEventListener('click', function () {
-    popupAddValidator.enableValidation();
     popupAddValidator.resetErrorInput();
-    popupAddForm.openPopup();
+    popupAddForm.open();
 });
-
-
 
 
 

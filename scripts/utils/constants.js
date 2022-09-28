@@ -8,7 +8,6 @@ export const elementsSelector = '.elements';
 export const popupPhotoSelector = '.popup-photo';
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const profileAddButton = document.querySelector('.profile__add-button');
-export const elements = document.querySelector('.elements');
 export const validationSettings = {
     formSelector: '.popup__form',
     inputSelector: '.popup__item',

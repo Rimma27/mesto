@@ -27,12 +27,12 @@ export class PopupWithForm extends Popup {
         popupForm.addEventListener('submit', (e) => {
             e.preventDefault();
             this._submitFormCallback(this._getInputValues());
-            this.closePopup();
+            this.close();
         })
     }
 
-    closePopup() {
-        super.closePopup();
+    close() {
+        super.close();
         this._resetInputs();
     }
 
@@ -42,10 +42,10 @@ export class PopupWithForm extends Popup {
         })
     }
 
-    openPopup(initialInputValues) {
+    open(initialInputValues) {
         if (initialInputValues) {
             this._setInputValues(initialInputValues);
         }
-        super.openPopup();
+        super.open();
     }
 }

@@ -7,12 +7,12 @@ export class Section {
 
     renderItems() {
         this._initialArray.forEach(item => {
-            const domElement = this._renderer(item);
-            this.addItem(domElement);
+            const renderedItem = this._renderer(item);
+            this.addItem(renderedItem);
         });
     }
 
-    addItem(domElement) {
-        this._container.prepend(domElement);
+    addItem(item) {
+        this._container.prepend(item);
     }
 }
