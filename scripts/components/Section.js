@@ -4,11 +4,15 @@ export class Section {
         this._container = document.querySelector(containerSelector);
     }
 
-    renderItems(initialArray) {
-        initialArray.forEach(item => {
-            const renderedItem = this._renderer(item);
-            this.addItem(renderedItem);
+    renderItems(data) {
+        data.forEach(item => {
+            this.renderItem(item);
         });
+    }
+
+    renderItem(item) {
+        const renderedItem = this._renderer(item);
+        this.addItem(renderedItem);
     }
 
     addItem(item) {

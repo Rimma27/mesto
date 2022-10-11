@@ -30,45 +30,39 @@ const api = new Api({
     }
 });
 
-// get cards
-const initialCards = api.getInitialCards();
-initialCards
-    .then((res) => {
-        res.forEach((item) => {
-            const card = createCard(item);
-            const cardElement = card.generateCard();
-            section.addItem(cardElement)
-        })
-    })
+
+const section = new Section({
+    renderer: (item) => {
+        const card = createCard(item);
+        return card.generateCard();
+    }
+}, elementsSelector);
+
+//                                           get cards
+
+api.getInitialCards()
+    .then((res) => section.renderItems(res))
     .catch(err => console.log('Ошибка', err))
 
-const section = new Section({}, elementsSelector);
 
+//                                  добавляем информацию о пользователе
 
-// добавляем информацию о пользователе
 const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector });
-const serverUserInfo = api.getUserInfo();
-serverUserInfo
+api.getUserInfo()
     .then((res) => userInfo.setUserInfo(res.name, res.about))
     .catch(err => console.log(err))
 
 
 const popupAddValidator = new FormValidator(validationSettings, popupAdd);
-
 const popupProfileValidator = new FormValidator(validationSettings, popupProfile);
-
 const popupWithImage = new PopupWithImage(popupPhotoSelector);
 
 
-// добавление новой карточки
+//                                               добавление новой карточки
 const popupAddForm = new PopupWithForm(popupAddSelector, (item) => {
     api.addCard(item)
-    .then((res) => {
-        const card = createCard(res);
-        const cardElement = card.generateCard();
-        section.addItem(cardElement)
-    })
-    .catch(err => console.log(err))
+        .then((res) => section.renderItem(res))
+        .catch(err => console.log(err))
 });
 popupAddValidator.enableValidation();
 

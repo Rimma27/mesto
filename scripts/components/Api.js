@@ -33,7 +33,7 @@ export class Api {
   }
 
   // редактирование профиля
-  setUserInfo(name, about) {
+  setUserInfo() {
     return fetch(
       `${this._baseUrl}users/me`,
       {
