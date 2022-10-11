@@ -1,11 +1,12 @@
 import './index.css';
-import { initialCards } from "../scripts/utils/initialCards.js";
 import { Card } from "../scripts/components/Card.js";
 import { FormValidator } from "../scripts/components/FormValidator.js";
 import { PopupWithImage } from "../scripts/components/PopupWithImage.js";
 import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
 import { Section } from "../scripts/components/Section.js";
 import { UserInfo } from "../scripts/components/UserInfo.js";
+import { Api } from '../scripts/components/Api';
+
 import {
     popupAddSelector,
     popupProfile,
@@ -17,38 +18,69 @@ import {
     elementsSelector,
     popupPhotoSelector,
     profileEditButton,
-    profileAddButton,
+    profileAddButton
+
 } from "../scripts/utils/constants.js";
+
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-51/',
+    headers: {
+        authorization: '9c349439-3a63-4974-81ef-898d0370b2c4',
+        'Content-Type': 'application/json'
+    }
+});
+
+// get cards
+const initialCards = api.getInitialCards();
+initialCards
+    .then((res) => {
+        res.forEach((item) => {
+            const card = createCard(item);
+            const cardElement = card.generateCard();
+            section.addItem(cardElement)
+        })
+    })
+    .catch(err => console.log('Ошибка', err))
+
+const section = new Section({}, elementsSelector);
+
+
+// добавляем информацию о пользователе
+const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector });
+const serverUserInfo = api.getUserInfo();
+serverUserInfo
+    .then((res) => userInfo.setUserInfo(res.name, res.about))
+    .catch(err => console.log(err))
 
 
 const popupAddValidator = new FormValidator(validationSettings, popupAdd);
 
 const popupProfileValidator = new FormValidator(validationSettings, popupProfile);
 
-const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector });
-
 const popupWithImage = new PopupWithImage(popupPhotoSelector);
 
+
+// добавление новой карточки
 const popupAddForm = new PopupWithForm(popupAddSelector, (item) => {
-    const card = createCard(item);
-    const cardElement = card.generateCard();
-    section.addItem(cardElement);
+    api.addCard(item)
+    .then((res) => {
+        const card = createCard(res);
+        const cardElement = card.generateCard();
+        section.addItem(cardElement)
+    })
+    .catch(err => console.log(err))
 });
 popupAddValidator.enableValidation();
+
 
 const popupProfileForm = new PopupWithForm(popupProfileSelector, (inputsInfo) => {
     userInfo.setUserInfo(inputsInfo.name, inputsInfo.job);
 });
 popupProfileValidator.enableValidation();
 
-const section = new Section({
-    items: initialCards,
-    renderer: (item) => {
-        const card = createCard(item);
-        return card.generateCard();
-    }
-}, elementsSelector);
-section.renderItems();
+// открытие попапа удаления карточки
+
+
 
 
 function createCard(item) {
@@ -61,6 +93,7 @@ function createCard(item) {
 popupWithImage.setEventListeners();
 popupAddForm.setEventListeners();
 popupProfileForm.setEventListeners();
+
 
 profileEditButton.addEventListener('click', function () {
     popupProfileValidator.resetErrorInput();
