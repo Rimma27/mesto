@@ -1,6 +1,7 @@
 export const popupAddSelector = '.popup-add';
 export const popupProfile = document.querySelector('.popup');
 export const popupAdd = document.querySelector('.popup-add');
+export const popupUpdateAvatar = document.querySelector('.popup-update-avatar');
 export const popupProfileSelector = '.popup';
 export const profileNameSelector = '.profile__title';
 export const profileJobSelector = '.profile__subtitle';
@@ -8,8 +9,11 @@ export const elementsSelector = '.elements';
 export const popupPhotoSelector = '.popup-photo';
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const profileAddButton = document.querySelector('.profile__add-button');
+export const avatarUpdateButton = document.querySelector('.profile__edit-avatar-button');
 export const popupDeleteSelector = '.popup-delete';
 export const cardsDelete = document.querySelector('.element__basket');
+export const avatarUpdateSelector = '.popup-update-avatar';
+export const usersAvatarSelector = '.profile__avatar';
 export const validationSettings = {
     formSelector: '.popup__form',
     inputSelector: '.popup__item',

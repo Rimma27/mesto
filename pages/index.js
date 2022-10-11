@@ -18,7 +18,11 @@ import {
     elementsSelector,
     popupPhotoSelector,
     profileEditButton,
-    profileAddButton
+    profileAddButton,
+    avatarUpdateSelector,
+    usersAvatarSelector,
+    popupUpdateAvatar,
+    avatarUpdateButton
 
 } from "../scripts/utils/constants.js";
 
@@ -41,7 +45,7 @@ const section = new Section({
 
 //                                  добавляем информацию о пользователе
 
-const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector });
+const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector, usersAvatarSelector:  usersAvatarSelector});
 
 
 //                                получение данных
@@ -49,7 +53,9 @@ const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJob
 Promise.all([api.getInitialCards(), api.getUserInfo()])
     .then((values) => {
         const userData = values[1];
-        userInfo.setUserInfo(userData._id, userData.name, userData.about, userData.avatar);
+        userInfo.id = userData._id;
+        userInfo.setUserInfo(userData.name, userData.about);
+        userInfo.setAvatar(userData.avatar);
 
         const cards = values[0];
         section.renderItems(cards);
@@ -60,10 +66,13 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
 
 const popupAddValidator = new FormValidator(validationSettings, popupAdd);
 const popupProfileValidator = new FormValidator(validationSettings, popupProfile);
+const popupAvatarValidator = new FormValidator(validationSettings, popupUpdateAvatar);
+
 const popupWithImage = new PopupWithImage(popupPhotoSelector);
 
 
 //                                               добавление новой карточки
+
 const popupAddForm = new PopupWithForm(popupAddSelector, (item) => {
     api.addCard(item)
         .then((res) => section.renderItem(res))
@@ -77,8 +86,16 @@ const popupProfileForm = new PopupWithForm(popupProfileSelector, (inputsInfo) =>
 });
 popupProfileValidator.enableValidation();
 
-// открытие попапа удаления карточки
+//                                              открытие попапа обновления аватара
 
+const updateUsersAvatar = new PopupWithForm(avatarUpdateSelector, (item) => {
+    api.updateAvatar(item.link)
+    .then(() => {
+        userInfo.setAvatar(item.link)
+    })
+    .catch(err => console.log('Ошибка', err));
+})
+popupAvatarValidator.enableValidation();
 
 
 
@@ -112,6 +129,7 @@ function createCard(item) {
 popupWithImage.setEventListeners();
 popupAddForm.setEventListeners();
 popupProfileForm.setEventListeners();
+updateUsersAvatar.setEventListeners();
 
 
 profileEditButton.addEventListener('click', function () {
@@ -125,4 +143,7 @@ profileAddButton.addEventListener('click', function () {
     popupAddForm.open();
 });
 
-
+avatarUpdateButton.addEventListener('click', function () {
+    popupAvatarValidator.resetErrorInput();
+    updateUsersAvatar.open();
+})

@@ -62,6 +62,7 @@ export class Api {
       .then(this._onResponce)
   }
 
+  // постановка лайков
   setLike(id) {
     return fetch(
       `${this._baseUrl}cards/${id}/likes`,
@@ -72,6 +73,7 @@ export class Api {
       .then(this._onResponce)
   }
 
+  // удаление карточки
   removeLike(id) {
     return fetch(
       `${this._baseUrl}cards/${id}/likes`,
@@ -92,5 +94,20 @@ export class Api {
       })
       .then(this._onResponce)
   }
+
+// обновление аватара
+updateAvatar(link) {
+  return fetch(
+    `${this._baseUrl}users/me/avatar`,
+    {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: link
+      })
+    })
+    .then(this._onResponce)
+}
+
 
 }
