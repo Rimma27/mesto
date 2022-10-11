@@ -6,16 +6,13 @@ export class Section {
 
     renderItems(data) {
         data.forEach(item => {
-            this.renderItem(item);
+            const renderedItem = this._renderer(item);
+            this._container.append(renderedItem);
         });
     }
 
     renderItem(item) {
         const renderedItem = this._renderer(item);
-        this.addItem(renderedItem);
-    }
-
-    addItem(item) {
-        this._container.prepend(item);
+        this._container.prepend(renderedItem);
     }
 }

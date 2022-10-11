@@ -62,22 +62,30 @@ export class Api {
       .then(this._onResponce)
   }
 
-  // подсчет лайков
-  calculateLikes() {
+  setLike(id) {
     return fetch(
-      `${this._baseUrl}cards`,
+      `${this._baseUrl}cards/${id}/likes`,
       {
-        headers: this._headers,
-        body: JSON.stringify({
-          likes: []
-        })
+        method: 'PUT',
+        headers: this._headers
       })
       .then(this._onResponce)
   }
 
-  removeCard(idCard) {
+  removeLike(id) {
     return fetch(
-      `${this._baseUrl}cards/${idCard}`,
+      `${this._baseUrl}cards/${id}/likes`,
+      {
+        method: 'DELETE',
+        headers: this._headers
+      })
+      .then(this._onResponce)
+  }
+
+  // удаление карточки
+  deleteCard(id) {
+    return fetch(
+      `${this._baseUrl}cards/${id}`,
       {
         method: 'DELETE',
         headers: this._headers

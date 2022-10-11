@@ -38,19 +38,24 @@ const section = new Section({
     }
 }, elementsSelector);
 
-//                                           get cards
-
-api.getInitialCards()
-    .then((res) => section.renderItems(res))
-    .catch(err => console.log('Ошибка', err))
-
 
 //                                  добавляем информацию о пользователе
 
 const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector });
-api.getUserInfo()
-    .then((res) => userInfo.setUserInfo(res.name, res.about))
-    .catch(err => console.log(err))
+
+
+//                                получение данных
+
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+    .then((values) => {
+        const userData = values[1];
+        userInfo.setUserInfo(userData._id, userData.name, userData.about, userData.avatar);
+
+        const cards = values[0];
+        section.renderItems(cards);
+    })
+    .catch(err => console.log('Ошибка', err));
+
 
 
 const popupAddValidator = new FormValidator(validationSettings, popupAdd);
@@ -62,7 +67,7 @@ const popupWithImage = new PopupWithImage(popupPhotoSelector);
 const popupAddForm = new PopupWithForm(popupAddSelector, (item) => {
     api.addCard(item)
         .then((res) => section.renderItem(res))
-        .catch(err => console.log(err))
+        .catch(err => console.log('Ошибка', err))
 });
 popupAddValidator.enableValidation();
 
@@ -78,7 +83,27 @@ popupProfileValidator.enableValidation();
 
 
 function createCard(item) {
-    const card = new Card(item, '.element-template', popupWithImage.open.bind(popupWithImage));
+    const card = new Card(
+        item,
+        '.element-template',
+        popupWithImage.open.bind(popupWithImage),
+        userInfo.id,
+        (cardId) => {
+            api
+            .setLike(cardId)
+            .catch(err => console.log('Ошибка при установке лайка', err));
+         },
+        (cardId) => {
+            api
+            .removeLike(cardId)
+            .catch(err => console.log('Ошибка при удалении лайка', err));
+         },
+        (cardId) => { 
+            api
+            .deleteCard(cardId)
+            .catch(err => console.log('Ошибка при удалении карточки', err));
+        },
+    );
     return card;
 }
 
@@ -99,8 +124,5 @@ profileAddButton.addEventListener('click', function () {
     popupAddValidator.resetErrorInput();
     popupAddForm.open();
 });
-
-
-
 
 
