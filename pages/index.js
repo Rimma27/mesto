@@ -6,6 +6,7 @@ import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
 import { Section } from "../scripts/components/Section.js";
 import { UserInfo } from "../scripts/components/UserInfo.js";
 import { Api } from '../scripts/components/Api';
+import { AcceptPopup } from '../scripts/components/AcceptPopup';
 
 import {
     popupAddSelector,
@@ -22,7 +23,8 @@ import {
     avatarUpdateSelector,
     usersAvatarSelector,
     popupUpdateAvatar,
-    avatarUpdateButton
+    avatarUpdateButton,
+    popupDeleteSelector
 
 } from "../scripts/utils/constants.js";
 
@@ -45,7 +47,7 @@ const section = new Section({
 
 //                                  добавляем информацию о пользователе
 
-const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector, usersAvatarSelector:  usersAvatarSelector});
+const userInfo = new UserInfo({ usersNameSelector: profileNameSelector, usersJobSelector: profileJobSelector, usersAvatarSelector: usersAvatarSelector });
 
 
 //                                получение данных
@@ -90,14 +92,14 @@ popupProfileValidator.enableValidation();
 
 const updateUsersAvatar = new PopupWithForm(avatarUpdateSelector, (item) => {
     api.updateAvatar(item.link)
-    .then(() => {
-        userInfo.setAvatar(item.link)
-    })
-    .catch(err => console.log('Ошибка', err));
+        .then(() => {
+            userInfo.setAvatar(item.link)
+        })
+        .catch(err => console.log('Ошибка', err));
 })
 popupAvatarValidator.enableValidation();
 
-
+const popupAccept = new AcceptPopup(popupDeleteSelector);
 
 function createCard(item) {
     const card = new Card(
@@ -107,19 +109,20 @@ function createCard(item) {
         userInfo.id,
         (cardId) => {
             api
-            .setLike(cardId)
-            .catch(err => console.log('Ошибка при установке лайка', err));
-         },
+                .setLike(cardId)
+                .catch(err => console.log('Ошибка при установке лайка', err));
+        },
         (cardId) => {
             api
-            .removeLike(cardId)
-            .catch(err => console.log('Ошибка при удалении лайка', err));
-         },
-        (cardId) => { 
-            api
-            .deleteCard(cardId)
-            .catch(err => console.log('Ошибка при удалении карточки', err));
+                .removeLike(cardId)
+                .catch(err => console.log('Ошибка при удалении лайка', err));
         },
+        (cardId) => {
+            api
+                .deleteCard(cardId)
+                .catch(err => console.log('Ошибка при удалении карточки', err));
+        },
+        popupAccept.open.bind(popupAccept)
     );
     return card;
 }
@@ -130,6 +133,7 @@ popupWithImage.setEventListeners();
 popupAddForm.setEventListeners();
 popupProfileForm.setEventListeners();
 updateUsersAvatar.setEventListeners();
+popupAccept.setEventListeners();
 
 
 profileEditButton.addEventListener('click', function () {
