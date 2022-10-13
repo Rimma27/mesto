@@ -1,12 +1,12 @@
 import './index.css';
-import { Card } from "../scripts/components/Card.js";
-import { FormValidator } from "../scripts/components/FormValidator.js";
-import { PopupWithImage } from "../scripts/components/PopupWithImage.js";
-import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
-import { Section } from "../scripts/components/Section.js";
-import { UserInfo } from "../scripts/components/UserInfo.js";
-import { Api } from '../scripts/components/Api';
-import { AcceptPopup } from '../scripts/components/AcceptPopup';
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { Section } from "../components/Section.js";
+import { UserInfo } from "../components/UserInfo.js";
+import { Api } from '../components/Api';
+import { AcceptPopup } from '../components/AcceptPopup';
 
 import {
     popupAddSelector,
@@ -117,12 +117,17 @@ function createCard(item) {
                 .removeLike(cardId)
                 .catch(err => console.log('Ошибка при удалении лайка', err));
         },
+
         (cardId) => {
-            api
-                .deleteCard(cardId)
-                .catch(err => console.log('Ошибка при удалении карточки', err));
-        },
-        popupAccept.open.bind(popupAccept)
+            popupAccept.open();
+            popupAccept.setEventListeners(() => {
+                api.deleteCard(cardId)
+                    .then(() => {
+                        card.deleteCard()
+                    })
+                    .catch(err => console.log('Ошибка при удалении карточки', err));
+            })
+        }
     );
     return card;
 }
@@ -133,7 +138,7 @@ popupWithImage.setEventListeners();
 popupAddForm.setEventListeners();
 popupProfileForm.setEventListeners();
 updateUsersAvatar.setEventListeners();
-popupAccept.setEventListeners();
+
 
 
 profileEditButton.addEventListener('click', function () {

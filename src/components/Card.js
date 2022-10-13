@@ -1,6 +1,6 @@
 export class Card {
 
-    constructor(data, templateSelector, openPopupCallback, userId, setLikeCallback, removeLikeCallback, deleteCardCallback, openAccept) {
+    constructor(data, templateSelector, openPopupCallback, userId, setLikeCallback, removeLikeCallback, deleteCardCallback) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
@@ -13,7 +13,6 @@ export class Card {
         this._setLikeCallback = setLikeCallback;
         this._removeLikeCallback = removeLikeCallback;
         this._deleteCardCallback = deleteCardCallback;
-        this._openAccept = openAccept;
     }
 
     _getTemplate() {
@@ -47,17 +46,14 @@ export class Card {
         return this._element;
     }
 
-    _deleteCard() {
-        this._deleteCardCallback(this._id);
+    deleteCard() {
         this._element.remove();
     }
 
 
     _setEventListeners() {
         this._element.querySelector('.element__basket').addEventListener('click', () => {
-            this._openAccept(() => {
-                this._deleteCard();
-            });
+            this._deleteCardCallback();
         });
 
         this._element.querySelector('.element__like').addEventListener('click', (evt) => {
