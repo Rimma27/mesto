@@ -100,6 +100,7 @@ const updateUsersAvatar = new PopupWithForm(avatarUpdateSelector, (item) => {
 popupAvatarValidator.enableValidation();
 
 const popupAccept = new AcceptPopup(popupDeleteSelector);
+popupAccept.setEventListeners();
 
 function createCard(item) {
     const card = new Card(
@@ -107,23 +108,19 @@ function createCard(item) {
         '.element-template',
         popupWithImage.open.bind(popupWithImage),
         userInfo.id,
-        (cardId) => {
-            api
-                .setLike(cardId)
+        (card) => {
+            console.log(card.like)
+            api.setCardLike(card.id, card.like)
+                .then(() => {
+                    card.likeButtonActive();
+                })
                 .catch(err => console.log('Ошибка при установке лайка', err));
         },
-        (cardId) => {
-            api
-                .removeLike(cardId)
-                .catch(err => console.log('Ошибка при удалении лайка', err));
-        },
-
-        (cardId) => {
-            popupAccept.open();
-            popupAccept.setEventListeners(() => {
-                api.deleteCard(cardId)
+        (card) => {
+            popupAccept.open(() => {
+                api.deleteCard(card.id)
                     .then(() => {
-                        card.deleteCard()
+                        card.deleteCard();
                     })
                     .catch(err => console.log('Ошибка при удалении карточки', err));
             })

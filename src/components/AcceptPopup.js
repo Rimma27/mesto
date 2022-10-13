@@ -5,13 +5,19 @@ export class AcceptPopup extends Popup {
         super(popupSelector);
         this._popupForm = this._popup.querySelector('.popup__form');
     }
-
-    setEventListeners(submitCallback) {
+    
+    setEventListeners() {
         super.setEventListeners();
-        this._popupForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            this._submitCallback = submitCallback;
+        const popupForm = this._popup.querySelector('.popup__form');
+        popupForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            this._submitCallback();
             this.close();
         })
+    }
+
+    open(submitCallback) {
+        this._submitCallback = submitCallback;
+        super.open();
     }
 }

@@ -1,17 +1,16 @@
 export class Card {
 
-    constructor(data, templateSelector, openPopupCallback, userId, setLikeCallback, removeLikeCallback, deleteCardCallback) {
+    constructor(data, templateSelector, openPopupCallback, userId, setLikeCallback, deleteCardCallback) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
         this._openPopupCallback = openPopupCallback;
         this._likes = data.likes;
         this._cardOwnerId = data.owner._id;
-        this._id = data._id;
+        this.id = data._id;
         this._userId = userId;
-        this._hasUserLike = this._likes.map(x => x._id).filter(x => x === this._userId).length > 0;
+        this.like = this._likes.map(x => x._id).filter(x => x === this._userId).length > 0;
         this._setLikeCallback = setLikeCallback;
-        this._removeLikeCallback = removeLikeCallback;
         this._deleteCardCallback = deleteCardCallback;
     }
 
@@ -35,7 +34,7 @@ export class Card {
 
         this._element.querySelector('.element__likes').textContent = this._likes.length;
 
-        if (this._hasUserLike){
+        if (this.like){
             this._element.querySelector('.element__like').classList.toggle('element__like_active');
         }
 
@@ -53,11 +52,11 @@ export class Card {
 
     _setEventListeners() {
         this._element.querySelector('.element__basket').addEventListener('click', () => {
-            this._deleteCardCallback();
+            this._deleteCardCallback(this);
         });
 
         this._element.querySelector('.element__like').addEventListener('click', (evt) => {
-            this._likeButtonActive(evt);
+            this._setLikeCallback(this);
         });
 
         this._element.querySelector('.element__button-image').addEventListener('click', () => {
@@ -66,13 +65,11 @@ export class Card {
     }
 
 
-    _likeButtonActive(evt) {
-        const sign = this._hasUserLike ? -1 : 0;
-        if (evt.target.classList.toggle('element__like_active')){
-            this._setLikeCallback(this._id);
+    likeButtonActive() {
+        const sign = this.like ? -1 : 0;
+        if (this._element.querySelector('.element__like').classList.toggle('element__like_active')) {
             this._element.querySelector('.element__likes').textContent = this._likes.length + 1 + sign;
         } else {
-            this._removeLikeCallback(this._id);
             this._element.querySelector('.element__likes').textContent = this._likes.length + sign;
         }
     }
