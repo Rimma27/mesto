@@ -109,7 +109,6 @@ function createCard(item) {
         popupWithImage.open.bind(popupWithImage),
         userInfo.id,
         (card) => {
-            console.log(card.like)
             api.setCardLike(card.id, card.like)
                 .then(() => {
                     card.likeButtonActive();
