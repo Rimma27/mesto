@@ -1,0 +1,13 @@
+ .page {
+     align-self: center;
+     max-width: 880px;
+     background-color: black;
+     font-family: "Inter", Arial, Helvetica, sans-serif;
+     color: #fff;
+ }
+
+ @media screen and (max-width: 880px) {
+     .page {
+         max-width: 320px;
+     }
+ }
