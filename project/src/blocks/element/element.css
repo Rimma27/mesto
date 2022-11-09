@@ -1,9 +1,0 @@
-.element {
-    display: flex;
-    position: relative;
-    flex-wrap: wrap;
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
